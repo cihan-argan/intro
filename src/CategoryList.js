@@ -4,7 +4,8 @@ export default class CategoryList extends Component {
   render() {
     return (
       <div>
-        <h3>Category List</h3>
+        <h3>{this.props.info.title}</h3>
+        <h4>{this.props.info.yeniOzellik}</h4>
         <ListGroup>
           <ListGroupItem>Cras justo odio</ListGroupItem>
           <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
