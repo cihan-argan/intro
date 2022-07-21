@@ -6,7 +6,7 @@ import ProductList from "./ProductList";
 
 function App() {
   let productInfo = { title: "Product List" };
-  let categoryInfo = { title: "Category List", yeniOzellik: "yeni" };
+  let categoryInfo = { title: "Category List"};
   return (
     <div>
       <Container>
