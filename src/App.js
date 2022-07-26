@@ -6,9 +6,18 @@ import ProductList from "./ProductList";
 export default class App extends Component {
   state = {
     currentCategory: "",
+    products: [],
   };
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
+  };
+  componentDidMount() {
+    this.getProducts();
+  }
+  getProducts = () => {
+    fetch("http://localhost:3000/products") //Promise yapısı olacak ve fetch(içinde api nin urlsini yazdık.) bunu çalıştırıyor ve bir response dönüyor.
+      .then((response) => response.json()) //gelen response için response u json'a döndür diyoruz.
+      .then((data) => this.setState({ products: data })); //this.setState diyerek yukarıdaki  state içindeki products dizisi içine data.json içindeki categories bilgilerini atadık
   };
   render() {
     let productInfo = { title: "Product List" };
@@ -29,6 +38,7 @@ export default class App extends Component {
             </Col>
             <Col xs="9">
               <ProductList
+                products={this.state.products}
                 currentCategory={this.state.currentCategory}
                 info={productInfo}
               />
