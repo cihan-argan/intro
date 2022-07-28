@@ -10,12 +10,17 @@ export default class App extends Component {
   };
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
+    this.getProducts(category.id);
   };
   componentDidMount() {
     this.getProducts();
   }
-  getProducts = () => {
-    fetch("http://localhost:3000/products") //Promise yapısı olacak ve fetch(içinde api nin urlsini yazdık.) bunu çalıştırıyor ve bir response dönüyor.
+  getProducts = (categoryId) => {
+    let url = "http://localhost:3000/products";
+    if (categoryId) {
+      url += "?categoryId=" + categoryId;
+    }
+    fetch(url) //Promise yapısı olacak ve fetch(içinde api nin urlsini yazdık.) bunu çalıştırıyor ve bir response dönüyor.
       .then((response) => response.json()) //gelen response için response u json'a döndür diyoruz.
       .then((data) => this.setState({ products: data })); //this.setState diyerek yukarıdaki  state içindeki products dizisi içine data.json içindeki categories bilgilerini atadık
   };
