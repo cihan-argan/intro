@@ -3,6 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import CategoryList from "./CategoryList";
 import Navi from "./Navi";
 import ProductList from "./ProductList";
+import alertify from "alertifyjs";
 export default class App extends Component {
   state = {
     currentCategory: "",
@@ -37,10 +38,15 @@ export default class App extends Component {
     }
 
     this.setState({ cart: newCart });
+    alertify.success(product.productName + " added to your Cart!",2);
+   // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
+
   };
   removeFromCart=(product)=>{
     let newCart = this.state.cart.filter((cartItem)=>cartItem.product.id !==product.id);
     this.setState({cart:newCart});
+    alertify.error(product.productName + " remove from to your Cart!",2);
+    // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
   }
   render() {
     let productInfo = { title: "Product List" };
