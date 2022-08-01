@@ -7,6 +7,7 @@ export default class App extends Component {
   state = {
     currentCategory: "",
     products: [],
+    cart: [],
   };
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
@@ -24,15 +25,26 @@ export default class App extends Component {
       .then((response) => response.json()) //gelen response için response u json'a döndür diyoruz.
       .then((data) => this.setState({ products: data })); //this.setState diyerek yukarıdaki  state içindeki products dizisi içine data.json içindeki categories bilgilerini atadık
   };
+  addToCart = (product) => {
+    let newCart = this.state.cart;
+    var addedItem = newCart.find(
+      (cartItem) => cartItem.product.id === product.id
+    );
+    if (addedItem) {
+      addedItem.quantity += 1;
+    } else {
+      newCart.push({ product: product, quantity: 1 });
+    }
+
+    this.setState({ cart: newCart });
+  };
   render() {
     let productInfo = { title: "Product List" };
     let categoryInfo = { title: "Category List" };
     return (
       <div>
         <Container>
-          <Row>
-            <Navi />
-          </Row>
+          <Navi cart={this.state.cart} />
           <Row>
             <Col xs="3">
               <CategoryList
@@ -45,6 +57,7 @@ export default class App extends Component {
               <ProductList
                 products={this.state.products}
                 currentCategory={this.state.currentCategory}
+                addToCart={this.addToCart}
                 info={productInfo}
               />
             </Col>
