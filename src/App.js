@@ -4,6 +4,10 @@ import CategoryList from "./CategoryList";
 import Navi from "./Navi";
 import ProductList from "./ProductList";
 import alertify from "alertifyjs";
+import { Route, Routes } from "react-router-dom";
+import CartList from "./CartList";
+import NotFound from "./NotFound";
+
 export default class App extends Component {
   state = {
     currentCategory: "",
@@ -38,16 +42,17 @@ export default class App extends Component {
     }
 
     this.setState({ cart: newCart });
-    alertify.success(product.productName + " added to your Cart!",2);
-   // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
-
-  };
-  removeFromCart=(product)=>{
-    let newCart = this.state.cart.filter((cartItem)=>cartItem.product.id !==product.id);
-    this.setState({cart:newCart});
-    alertify.error(product.productName + " remove from to your Cart!",2);
+    alertify.success(product.productName + " added to your Cart!", 2);
     // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
-  }
+  };
+  removeFromCart = (product) => {
+    let newCart = this.state.cart.filter(
+      (cartItem) => cartItem.product.id !== product.id
+    );
+    this.setState({ cart: newCart });
+    alertify.error(product.productName + " remove from to your Cart!", 2);
+    // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
+  };
   render() {
     let productInfo = { title: "Product List" };
     let categoryInfo = { title: "Category List" };
@@ -64,12 +69,22 @@ export default class App extends Component {
               />
             </Col>
             <Col xs="9">
-              <ProductList
-                products={this.state.products}
-                currentCategory={this.state.currentCategory}
-                addToCart={this.addToCart}
-                info={productInfo}
-              />
+              <Routes>
+                <Route
+                  exact
+                  path="/"
+                  element={
+                    <ProductList
+                      products={this.state.products}
+                      currentCategory={this.state.currentCategory}
+                      addToCart={this.addToCart}
+                      info={productInfo}
+                    />
+                  }
+                />
+                <Route exact path="/cart" element={<CartList />}></Route>
+                <Route path="*" element={<NotFound />}></Route>
+              </Routes>
             </Col>
           </Row>
         </Container>
