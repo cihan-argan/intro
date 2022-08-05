@@ -50,7 +50,7 @@ export default class App extends Component {
       (cartItem) => cartItem.product.id !== product.id
     );
     this.setState({ cart: newCart });
-    alertify.error(product.productName + " remove from to your Cart!", 2);
+    alertify.error(product.productName + " removed from Cart!", 12);
     // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
   };
   render() {
