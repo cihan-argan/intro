@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import CartSummary from "./CartSummary";
 export default class Navi extends React.Component {
   render() {
@@ -19,7 +20,9 @@ export default class Navi extends React.Component {
           <Collapse navbar>
             <Nav className="justify-content-end" style={{ width: "100%" }}navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink>
+                  <Link to="form1">Form Demo 1</Link>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">

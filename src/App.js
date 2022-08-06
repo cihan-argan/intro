@@ -7,6 +7,7 @@ import alertify from "alertifyjs";
 import { Route, Routes } from "react-router-dom";
 import CartList from "./CartList";
 import NotFound from "./NotFound";
+import FormDemo1 from "./FormDemo1";
 
 export default class App extends Component {
   state = {
@@ -50,7 +51,7 @@ export default class App extends Component {
       (cartItem) => cartItem.product.id !== product.id
     );
     this.setState({ cart: newCart });
-    alertify.error(product.productName + " removed from Cart!", 12);
+    alertify.error(product.productName + " removed from Cart!", 2);
     // alertify.alert('You Have A Message ', product.productName + " added Cart.", function(){ alertify.success('Ok'); });
   };
   render() {
@@ -92,6 +93,7 @@ export default class App extends Component {
                     />
                   }
                 ></Route>
+                <Route path="/form1" element={<FormDemo1/>}></Route>
                 <Route path="*" element={<NotFound />}></Route>
               </Routes>
             </Col>
